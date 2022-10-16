@@ -31,10 +31,27 @@ export const counterSlice = createSlice({
     }
 })
 
-// 每个 case reducer 函数会生成对应的 Action creators
+// 导出异步请求的 actions
+export const incrementAsync = (params: any) => async dispatch => {
+    // 发送请求 伪代码
+    // const result = await fetch(
+    //     'https://api.github.com/users/ruanyf',
+    //     { method: "get" }
+    // ).then((response: Response) => response.json())
+    const result: { data: string } = await new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({
+                data: '异步请求而来的数据'
+            })
+        }, 1500);
+    })
+    console.log(result.data)
+};
+
+// 导出同步的actions (每个 case-reducer 函数会生成对应的 Action creators)
 export const { increment, decrement, incrementByAmount } = counterSlice.actions
 
-// 选择器等其他代码可以使用导入的 `RootState` 类型
+// 选择器等其他代码可以使用导入的 `RootState` 类型 (供hook使用)
 export const selectCount = (state: RootState) => state.counter.value
 
 export default counterSlice.reducer
