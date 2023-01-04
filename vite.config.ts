@@ -19,5 +19,15 @@ export default defineConfig(config => {
                 ],
             }),
         ],
+        css: {
+            preprocessorOptions: {
+                less: {
+                    javascriptEnabled: true, // 支持内联 JavaScript
+                },
+            },
+            modules: {
+                localsConvention: 'dashesOnly',
+            },
+        },
     };
 });
