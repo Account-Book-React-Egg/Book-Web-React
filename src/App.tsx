@@ -1,8 +1,7 @@
 import reactLogo from './assets/react.svg';
 import Counter from './pages/Counter';
-import { ConfigProvider, Button } from 'zarm';
+import { ConfigProvider } from 'zarm';
 import zhCN from 'zarm/lib/config-provider/locale/zh_CN';
-import 'zarm/dist/zarm.css';
 import './App.css';
 
 const App = () => {
