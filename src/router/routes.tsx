@@ -3,6 +3,18 @@ import * as Component from './components';
 
 const routes: IMenuDataItem[] = [
     {
+        text: '主页',
+        value: 'home',
+        children: [
+            {
+                text: 'home',
+                component: Component.Home,
+                value: '/home',
+                exact: true,
+            },
+        ],
+    },
+    {
         text: '计算',
         value: 'counter',
         children: [
@@ -10,7 +22,6 @@ const routes: IMenuDataItem[] = [
                 text: 'counter',
                 component: Component.Counter,
                 value: '/counter',
-                no_show_menu: true,
                 exact: true,
             },
         ],

@@ -32,7 +32,8 @@ const RouterComponent = () => {
                 <Suspense fallback={<>loading</>}>
                     <Switch>
                         {getRoute()}
-                        {/* <Redirect to="/404" /> */}
+                        <Redirect exact from="/" to="/home" />
+                        {/* <Route component={NotFound} /> */}
                     </Switch>
                 </Suspense>
             </Router>
