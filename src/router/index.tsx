@@ -5,9 +5,17 @@ import {
     Switch,
     Redirect,
 } from 'react-router-dom';
-import { ConfigProvider } from 'zarm';
+import { ConfigProvider, ActivityIndicator } from 'zarm';
 import zhCN from 'zarm/lib/config-provider/locale/zh_CN';
 import routes from './routes';
+
+const Spin = () => (
+    <div className="spin">
+        <ActivityIndicator type="spinner" size="lg" />
+        <br />
+        loading...
+    </div>
+);
 
 const RouterComponent = () => {
     const getRoute = useCallback(() => {
@@ -29,7 +37,7 @@ const RouterComponent = () => {
     return (
         <ConfigProvider locale={zhCN}>
             <Router>
-                <Suspense fallback={<>loading</>}>
+                <Suspense fallback={<Spin />}>
                     <Switch>
                         {getRoute()}
                         <Redirect exact from="/" to="/home" />
