@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import 'lib-flexible/flexible';
 import App from './App';
 import store from './redux/store';
-import { Provider } from 'react-redux';
 
 import './index.css';
 

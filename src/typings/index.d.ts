@@ -66,3 +66,4 @@ declare module 'zarm/lib/config-provider/locale/zh_CN' {
     };
     export default zhCN;
 }
+declare module 'lib-flexible/flexible';
