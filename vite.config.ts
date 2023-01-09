@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { createStyleImportPlugin } from 'vite-plugin-style-import';
+import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig(config => {
@@ -27,6 +28,12 @@ export default defineConfig(config => {
             },
             modules: {
                 localsConvention: 'dashesOnly',
+            },
+        },
+        resolve: {
+            // https://github.com/rollup/plugins/tree/master/packages/alias#entries
+            alias: {
+                '@': path.resolve(__dirname, 'src'),
             },
         },
     };
