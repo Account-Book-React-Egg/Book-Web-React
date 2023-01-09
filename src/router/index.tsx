@@ -1,14 +1,10 @@
-import { useCallback, Suspense } from 'react';
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch,
-    Redirect,
-} from 'react-router-dom';
-import { ConfigProvider, ActivityIndicator } from 'zarm';
-import zhCN from 'zarm/lib/config-provider/locale/zh_CN';
+import { useState, useEffect, useCallback, Suspense } from 'react';
+import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
+import { ActivityIndicator } from 'zarm';
 import NavBar from '@/components/NavBar';
 import routes from './routes';
+
+const NEED_NAV = ['/', '/bill', '/stats', '/user']; // 需要展示底部NavBar的路径
 
 const Spin = () => (
     <div className="spin">
@@ -19,6 +15,9 @@ const Spin = () => (
 );
 
 const RouterComponent = () => {
+    const [showNav, setShowNav] = useState(false);
+    const { pathname } = useLocation();
+
     const getRoute = useCallback(() => {
         return routes.map(r => {
             return r.children.map(item => {
@@ -35,21 +34,23 @@ const RouterComponent = () => {
         });
     }, []);
 
-    return (
-        <Router>
-            <ConfigProvider locale={zhCN}>
-                <Suspense fallback={<Spin />}>
-                    <Switch>
-                        {getRoute()}
-                        <Redirect exact from="/" to="/bill" />
-                        {/* <Route component={NotFound} /> */}
-                    </Switch>
-                </Suspense>
-            </ConfigProvider>
+    useEffect(() => {
+        setShowNav(NEED_NAV.includes(pathname));
+    }, [pathname]);
 
-            {/* 全局底部导航栏 */}
-            <NavBar showNav />
-        </Router>
+    return (
+        <>
+            <Suspense fallback={<Spin />}>
+                <Switch>
+                    {getRoute()}
+                    <Redirect exact from="/" to="/bill" />
+                    {/* <Route component={NotFound} /> */}
+                </Switch>
+            </Suspense>
+
+            {/* 全局底部导航栏*/}
+            <NavBar showNav={showNav} />
+        </>
     );
 };
 

@@ -1,9 +1,9 @@
 import reactLogo from '../../assets/react.svg';
-import './index.css';
+import style from './index.module.less';
 
 const Home = () => {
     return (
-        <div className="home">
+        <div className={style.bill}>
             <div>
                 <a href="https://vitejs.dev" target="_blank">
                     <img src="/vite.svg" className="logo" alt="Vite logo" />
@@ -17,9 +17,7 @@ const Home = () => {
                 </a>
             </div>
             <h1>Vite + React</h1>
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
+            <p className="read-the-docs">账单</p>
         </div>
     );
 };
