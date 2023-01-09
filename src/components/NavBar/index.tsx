@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { TabBar } from 'zarm';
 import { useHistory } from 'react-router-dom';
+import CustomIcon from '@/components/CustomIcon';
 import type { BaseTabBarProps } from 'zarm/types/tab-bar/PropsType';
 import style from './index.module.less';
 
@@ -20,9 +21,21 @@ const NavBar: React.FC<{ showNav: boolean }> = ({ showNav }) => {
             activeKey={activeKey}
             onChange={changeTab as BaseTabBarProps['onChange']}
         >
-            <TabBar.Item itemKey="/" title="账单" />
-            <TabBar.Item itemKey="/stats" title="统计" />
-            <TabBar.Item itemKey="/user" title="我的" />
+            <TabBar.Item
+                itemKey="/"
+                title="账单"
+                icon={<CustomIcon type="zhangdan" />}
+            />
+            <TabBar.Item
+                itemKey="/stats"
+                title="统计"
+                icon={<CustomIcon type="tongji" />}
+            />
+            <TabBar.Item
+                itemKey="/user"
+                title="我的"
+                icon={<CustomIcon type="wode" />}
+            />
         </TabBar>
     );
 };
