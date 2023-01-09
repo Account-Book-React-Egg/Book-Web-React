@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import { ConfigProvider, ActivityIndicator } from 'zarm';
 import zhCN from 'zarm/lib/config-provider/locale/zh_CN';
+import NavBar from '@/components/NavBar';
 import routes from './routes';
 
 const Spin = () => (
@@ -35,17 +36,20 @@ const RouterComponent = () => {
     }, []);
 
     return (
-        <ConfigProvider locale={zhCN}>
-            <Router>
+        <Router>
+            <ConfigProvider locale={zhCN}>
                 <Suspense fallback={<Spin />}>
                     <Switch>
                         {getRoute()}
-                        <Redirect exact from="/" to="/home" />
+                        <Redirect exact from="/" to="/bill" />
                         {/* <Route component={NotFound} /> */}
                     </Switch>
                 </Suspense>
-            </Router>
-        </ConfigProvider>
+            </ConfigProvider>
+
+            {/* 全局底部导航栏 */}
+            <NavBar showNav />
+        </Router>
     );
 };
 
