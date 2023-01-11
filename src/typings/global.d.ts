@@ -4,6 +4,7 @@ declare global {
     interface IResponse {
         code: number;
         message: string;
+        msg: string;
         data: any;
     }
 }

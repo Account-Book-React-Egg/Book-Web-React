@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { Cell, Input, Button, Checkbox, Toast } from 'zarm';
 import CustomIcon from '@/components/CustomIcon';
 import Captcha from 'react-captcha-code';
+import http from '@/utils/http';
 import type { InputChange } from '@/typings/modules/login';
 
 import style from './index.module.less';
@@ -25,6 +26,9 @@ const Login = () => {
         if (!password) return Toast.show('请输入密码');
         if (!verify) return Toast.show('请输入验证码');
         if (verify != captcha) return Toast.show('验证码错误');
+
+        await http.post('/user/register', { username, password });
+        Toast.show('注册成功');
     };
 
     return (
