@@ -6,7 +6,7 @@ import RouterComponent from '@/router';
 const App = () => {
     return (
         <div className="app">
-            <ConfigProvider locale={zhCN}>
+            <ConfigProvider locale={zhCN} primaryColor={'#007fff'}>
                 <Router>
                     <RouterComponent />
                 </Router>

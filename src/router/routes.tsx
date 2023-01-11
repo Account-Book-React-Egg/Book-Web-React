@@ -3,6 +3,18 @@ import * as Component from './components';
 
 const routes: IMenuDataItem[] = [
     {
+        text: '登录',
+        value: 'login',
+        children: [
+            {
+                text: 'login',
+                component: Component.Login,
+                value: '/login',
+                exact: true,
+            },
+        ],
+    },
+    {
         text: '计算',
         value: 'counter',
         children: [
