@@ -30,12 +30,12 @@ const errorHandler = (code = 500, message = 'Internal Server Error') => {
 // 成功的响应结构 https://www.axios-http.cn/docs/res_schema
 const onReqFulfilled = (res: AxiosResponse) => {
     const {
-        data: { code, message },
+        data: { code, msg, message },
     } = res;
     if (code === 200) return res.data;
-    errorHandler(code, message);
+    errorHandler(code, msg || message);
 
-    return Promise.reject(res);
+    return Promise.reject(res.data);
 };
 
 const onReqRejected = (err: AxiosError<IResponse>) => {
@@ -45,7 +45,10 @@ const onReqRejected = (err: AxiosError<IResponse>) => {
             window.location.href = '/login';
             localStorage.removeItem('token');
         }
-        errorHandler(data.code || status, data.message || err.message);
+        errorHandler(
+            data.code || status,
+            data.msg || data.message || err.message
+        );
     } else {
         // 服务器崩溃时没有 response 响应
         if (!window.navigator.onLine) Toast.show('服务端异常！'); // 断网
