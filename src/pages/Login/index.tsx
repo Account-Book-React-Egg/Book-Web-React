@@ -1,9 +1,32 @@
-import { Cell, Input, Button, Checkbox } from 'zarm';
+import { useState, useCallback } from 'react';
+import { Cell, Input, Button, Checkbox, Toast } from 'zarm';
 import CustomIcon from '@/components/CustomIcon';
+import Captcha from 'react-captcha-code';
+import type { InputChange } from '@/typings/modules/login';
 
 import style from './index.module.less';
 
 const Login = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [verify, setVerify] = useState('');
+    const [captcha, setCaptcha] = useState('');
+
+    const onInputChange: InputChange = (setState, value) => {
+        value && setState(value);
+    };
+
+    const onCaptchaChange = useCallback((c: string) => {
+        setCaptcha(c);
+    }, []);
+
+    const onSubmit = async () => {
+        if (!username) return Toast.show('请输入账号');
+        if (!password) return Toast.show('请输入密码');
+        if (!verify) return Toast.show('请输入验证码');
+        if (verify != captcha) return Toast.show('验证码错误');
+    };
+
     return (
         <div className={style.auth}>
             <div className={style.head} />
@@ -12,13 +35,35 @@ const Login = () => {
             </div>
             <div className={style.form}>
                 <Cell icon={<CustomIcon type="zhanghao" />}>
-                    <Input clearable type="text" placeholder="请输入账号" />
+                    <Input
+                        clearable
+                        type="text"
+                        placeholder="请输入账号"
+                        onChange={(value?: string) =>
+                            onInputChange(setUsername, value)
+                        }
+                    />
                 </Cell>
                 <Cell icon={<CustomIcon type="mima" />}>
-                    <Input clearable type="password" placeholder="请输入密码" />
+                    <Input
+                        clearable
+                        type="password"
+                        placeholder="请输入密码"
+                        onChange={(value?: string) =>
+                            onInputChange(setPassword, value)
+                        }
+                    />
                 </Cell>
                 <Cell icon={<CustomIcon type="mima" />}>
-                    <Input clearable type="text" placeholder="请输入验证码" />
+                    <Input
+                        clearable
+                        type="text"
+                        placeholder="请输入验证码"
+                        onChange={(value?: string) =>
+                            onInputChange(setVerify, value)
+                        }
+                    />
+                    <Captcha charNum={4} onChange={onCaptchaChange} />
                 </Cell>
             </div>
             <div className={style.operation}>
@@ -28,7 +73,7 @@ const Login = () => {
                         阅读并同意<a>《尧哥最帅条款》</a>
                     </label>
                 </div>
-                <Button block theme="primary">
+                <Button block theme="primary" onClick={onSubmit}>
                     注册
                 </Button>
             </div>

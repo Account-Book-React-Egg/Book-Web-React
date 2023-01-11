@@ -32,6 +32,7 @@ export default defineConfig(config => {
         },
         resolve: {
             // https://github.com/rollup/plugins/tree/master/packages/alias#entries
+            // alias: [{ find: '@', replacement: resolve(__dirname, './src') }],
             alias: {
                 '@': path.resolve(__dirname, 'src'),
             },
