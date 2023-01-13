@@ -27,6 +27,8 @@ export default defineConfig(config => {
                 },
             },
             modules: {
+                // https://github.com/madyankin/postcss-modules
+                // Dashes in class names will be camelized, the original class name will be removed from the locals
                 localsConvention: 'dashesOnly',
             },
         },
