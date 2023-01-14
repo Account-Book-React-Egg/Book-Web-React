@@ -1,4 +1,28 @@
-#root {
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+}
+
+#root,
+.app {
+  height: 100%;
+}
+
+a {
+  font-weight: 500;
+  color: var(--button-primary-ghost-color);
+  text-decoration: inherit;
+}
+a:hover,
+a:active {
+  color: var(--button-primary-ghost-active-color);
+}
+
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -55,4 +79,4 @@ h1 {
   button {
     background-color: #f9f9f9;
   }
-}
+} */

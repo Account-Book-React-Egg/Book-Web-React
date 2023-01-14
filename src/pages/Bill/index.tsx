@@ -1,23 +1,36 @@
-import reactLogo from '../../assets/react.svg';
-import style from './index.module.less';
+import { useState } from 'react';
+import BillHeader from './components/BillHeader';
+import BillItem from './components/BillItem';
+
+import { home, contentWrap } from './index.module.less';
 
 const Home = () => {
+    const [billList, setBillList] = useState([
+        {
+            bills: [
+                {
+                    amount: '25.00',
+                    date: '1623390740000',
+                    id: 911,
+                    pay_type: 1,
+                    remark: '',
+                    type_id: 1,
+                    type_name: '餐饮',
+                },
+            ],
+            date: '2021-06-11',
+        },
+    ]);
+
     return (
-        <div className={style.bill}>
-            <div>
-                <a href="https://vitejs.dev" target="_blank">
-                    <img src="/vite.svg" className="logo" alt="Vite logo" />
-                </a>
-                <a href="https://reactjs.org" target="_blank">
-                    <img
-                        src={reactLogo}
-                        className="logo react"
-                        alt="React logo"
-                    />
-                </a>
+        <div className={home}>
+            <BillHeader />
+
+            <div className={contentWrap}>
+                {billList.map((item, index) => (
+                    <BillItem billItem={item} key={index} />
+                ))}
             </div>
-            <h1>Vite + React</h1>
-            <p className="read-the-docs">账单</p>
         </div>
     );
 };
