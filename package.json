@@ -12,6 +12,7 @@
     "@reduxjs/toolkit": "^1.8.5",
     "axios": "^1.2.2",
     "consola": "^2.15.3",
+    "dayjs": "^1.11.7",
     "lib-flexible": "^0.3.2",
     "react": "^18.2.0",
     "react-captcha-code": "^1.0.7",
