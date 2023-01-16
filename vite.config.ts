@@ -1,10 +1,16 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv, type ConfigEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { createStyleImportPlugin } from 'vite-plugin-style-import';
 import path from 'path';
 
-// https://vitejs.dev/config/
-export default defineConfig(config => {
+// 当前执行 node 命令时文件夹的地址（工作目录）
+const rootPath: string = process.cwd();
+
+export default defineConfig((config: ConfigEnv) => {
+    // vite 文件中，默认不加载 .env 文件, 可以使用 loadEnv 函数来加载指定的 .env 文件
+    // https://cn.vitejs.dev/config/#environment-variables
+    const { VITE_PORT, VITE_PROXY_DOMAIN } = loadEnv(config.mode, rootPath);
+
     return {
         plugins: [
             react(),
@@ -40,12 +46,13 @@ export default defineConfig(config => {
             },
         },
         server: {
+            port: +VITE_PORT,
             proxy: {
                 '/api': {
                     // 当遇到 /api 路径时，将其转换成 target 的值
-                    target: 'http://api.chennick.wang/api/',
+                    target: VITE_PROXY_DOMAIN,
                     changeOrigin: true,
-                    rewrite: path => path.replace(/^\/api/, ''), // 将 /api 重写为空
+                    // rewrite: path => path.replace(/^\/api/, ''), // 将 /api 重写为空
                 },
             },
         },

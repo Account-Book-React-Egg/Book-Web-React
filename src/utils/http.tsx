@@ -1,10 +1,9 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { Toast } from 'zarm';
 
+const { MODE, VITE_PROXY_DOMAIN, VITE_BASIC_URL } = import.meta.env;
 const BASE_URL =
-    import.meta.env.MODE === 'development'
-        ? '/api'
-        : 'http://api.chennick.wang';
+    MODE === 'development' ? VITE_BASIC_URL : VITE_PROXY_DOMAIN + '/api';
 
 const http = axios.create({
     baseURL: BASE_URL,
