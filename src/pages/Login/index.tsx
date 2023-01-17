@@ -5,8 +5,8 @@ import Captcha from 'react-captcha-code';
 import Form from './components/Form';
 import http from '@/utils/http';
 import { isNullOrUnDef } from '@/utils/is';
-import { LoginType } from '@/typings/enums';
-import type { InputChange } from '@/typings/modules/login';
+import { LoginType } from '@typings/enums';
+import type { InputChange } from '@typings/modules/login';
 
 import style from './index.module.less';
 

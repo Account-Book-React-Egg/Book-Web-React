@@ -3,8 +3,8 @@ import dayjs from 'dayjs';
 import { Cell } from 'zarm';
 import { useHistory } from 'react-router-dom';
 import CustomIcon from '@/components/CustomIcon';
-import { BillType } from '@/typings/enums';
-import type { IBill, IBillItem } from '@/typings/modules/bill';
+import { BillType } from '@typings/enums';
+import type { IBill, IBillItem } from '@typings/modules/bill';
 
 import style from './index.module.less';
 

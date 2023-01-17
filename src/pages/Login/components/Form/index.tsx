@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Cell, Input, Checkbox, Modal, Button } from 'zarm';
 import CustomIcon from '@/components/CustomIcon';
-import { LoginType } from '@/typings/enums';
+import { LoginType } from '@typings/enums';
 import type { FormProps } from './index.d';
 
 import { agree } from '../../index.module.less';

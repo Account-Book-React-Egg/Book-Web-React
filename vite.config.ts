@@ -43,6 +43,7 @@ export default defineConfig((config: ConfigEnv) => {
             // alias: [{ find: '@', replacement: resolve(__dirname, './src') }],
             alias: {
                 '@': path.resolve(__dirname, 'src'),
+                '@typings': path.resolve(__dirname, 'src/typings'),
             },
         },
         server: {
