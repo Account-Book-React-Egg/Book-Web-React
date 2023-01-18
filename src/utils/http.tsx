@@ -1,5 +1,12 @@
-import axios, { AxiosResponse, AxiosError } from 'axios';
+import axios, {
+    AxiosRequestConfig,
+    AxiosHeaders,
+    AxiosResponse,
+    AxiosError,
+} from 'axios';
 import { Toast } from 'zarm';
+import history from '@/utils/history';
+import { isFunction } from '@/utils/is';
 
 const { MODE, VITE_PROXY_DOMAIN, VITE_BASIC_URL } = import.meta.env;
 const BASE_URL =
@@ -10,19 +17,30 @@ const http = axios.create({
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
         'Content-Type': 'application/json',
-        Authorization: `${localStorage.getItem('token') || ''}`,
+        // Authorization: `${localStorage.getItem('token') || ''}`,
     },
     // withCredentials: true, // 表示跨域请求时是否需要使用凭证，默认 false
 });
 
-// 请求拦截
-// http.interceptors.request.use(
-//     config => config,
-//     error => Promise.reject(error)
-// );
+// 请求拦截：
+http.interceptors.request.use(
+    config => {
+        // TS 这里写的就很不优雅 (*｀皿´*)ﾉ https://juejin.cn/post/7186160220370894903
+        const token = localStorage.getItem('token');
+        if (token && config.headers && isFunction(config.headers.set)) {
+            config.headers.set('Authorization', token);
+        }
+        return config;
+    },
+    error => Promise.reject(error)
+);
 
-// 响应拦截
+// 响应拦截：
 const errorHandler = (code = 500, message = 'Internal Server Error') => {
+    if (code === 401) {
+        history.push('/login');
+        localStorage.removeItem('token');
+    }
     Toast.show(`${code}：${message}`);
 };
 
@@ -32,18 +50,14 @@ const onReqFulfilled = (res: AxiosResponse) => {
         data: { code, msg, message },
     } = res;
     if (code === 200) return res.data;
-    errorHandler(code, msg || message);
 
+    errorHandler(code, msg || message);
     return Promise.reject(res.data);
 };
 
 const onReqRejected = (err: AxiosError<IResponse>) => {
     if (err.response) {
         const { data, status } = err.response;
-        if (status === 401) {
-            window.location.href = '/login';
-            localStorage.removeItem('token');
-        }
         errorHandler(
             data.code || status,
             data.msg || data.message || err.message
